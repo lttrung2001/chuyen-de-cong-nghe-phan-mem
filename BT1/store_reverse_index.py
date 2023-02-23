@@ -1,3 +1,4 @@
+# This file use to save reverse index data
 # Import utils and needed class
 from utils.read_vocab_file import read_vocabs
 from utils.read_doc_file import read_docs
@@ -19,14 +20,19 @@ cards.sort()
 # Cần sửa: For theo từ điển
 first_card = cards[0]
 current_term = first_card[0]
-current_class = ReverseIndex(first_card[1])
+current = ReverseIndex(first_card[1])
 my_dict = dict()
 for card in cards:
   if card[0] != current_term:
-    my_dict[current_term] = current_class.__str__()
-    current_class = ReverseIndex(card[1])
+    my_dict[current_term] = current
+    current = ReverseIndex()
+    current.update(card[1])
     current_term = card[0]
   else:
-    current_class.update(card[1])
+    current.update(card[1])
 
-print(my_dict)
+# Save to file
+file = open('reverse-index-data.txt', 'w')
+for key, value in my_dict.items():
+  file.write('{0}::{1}::{2} \n'.format(key, value.freq, value.l))
+file.close()

@@ -1,8 +1,8 @@
 class ReverseIndex:
   # This is constructor
-  def __init__(self, doc_id):
-    self.freq = 1
-    self.l = [doc_id]
+  def __init__(self, freq = 0, l = []):
+    self.freq = freq
+    self.l = l
   
   # Similar to toString in Java
   def __str__(self):
