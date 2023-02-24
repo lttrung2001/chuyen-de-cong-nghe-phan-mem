@@ -8,10 +8,10 @@ from entities.InvertedIndex import InvertedIndex
 # Read vocabs from file
 vocab_dict = read_vocabs()
 # Read docs from file
-doc_list = read_docs()
+doc_dict = read_docs()
 
 # Generate locator cards (tạo danh sách thẻ định vị)
-cards = generate_cards(doc_list)
+cards = generate_cards(list(doc_dict.values()))
 
 # Sort cards
 cards.sort()

@@ -5,7 +5,7 @@ def read_vocabs():
   vocab_dict = {}
   try:
     for line in vocab_file:
-      vocab_dict[line.split()[1]] = InvertedIndex(0, set())
+      vocab_dict[line.split()[1].lower()] = InvertedIndex(0, set())
   except IndexError:
     print('end of file')
   vocab_file.close()
