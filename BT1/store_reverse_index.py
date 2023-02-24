@@ -17,22 +17,13 @@ cards = generate_cards(doc_list)
 cards.sort()
 
 # Tổng hợp danh sách thẻ định vị
-# Cần sửa: For theo từ điển
-first_card = cards[0]
-current_term = first_card[0]
-current = ReverseIndex(first_card[1])
 my_dict = dict()
 for card in cards:
-  if card[0] != current_term:
-    my_dict[current_term] = current
-    current = ReverseIndex()
-    current.update(card[1])
-    current_term = card[0]
-  else:
-    current.update(card[1])
-
+  if card[0] not in my_dict:
+    my_dict[card[0]] = set()
+  my_dict[card[0]].add(card[1])
 # Save to file
 file = open('reverse-index-data.txt', 'w')
 for key, value in my_dict.items():
-  file.write('{0}::{1}::{2} \n'.format(key, value.freq, value.l))
+  file.write('{0}::{1}\n'.format(key, value))
 file.close()
