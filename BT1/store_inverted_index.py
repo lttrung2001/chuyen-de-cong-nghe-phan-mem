@@ -3,10 +3,10 @@
 from utils.read_vocab_file import read_vocabs
 from utils.read_doc_file import read_docs
 from utils.generate_locator_cards import generate_cards
-from entities.ReverseIndex import ReverseIndex
+from entities.InvertedIndex import InvertedIndex
 
 # Read vocabs from file
-vocab_list = read_vocabs()
+vocab_dict = read_vocabs()
 # Read docs from file
 doc_list = read_docs()
 
@@ -17,22 +17,17 @@ cards = generate_cards(doc_list)
 cards.sort()
 
 # Tổng hợp danh sách thẻ định vị
-# Cần sửa: For theo từ điển
-first_card = cards[0]
-current_term = first_card[0]
-current = ReverseIndex(first_card[1])
-my_dict = dict()
 for card in cards:
-  if card[0] != current_term:
-    my_dict[current_term] = current
-    current = ReverseIndex()
-    current.update(card[1])
-    current_term = card[0]
-  else:
-    current.update(card[1])
-
-# Save to file
+  # Chưa có trong dict -> khởi tạo
+  if card[0] not in vocab_dict:
+    vocab_dict[card[0]] = InvertedIndex(0, set())
+  # Doc chưa có trong postings set -> frequency + 1
+  if card[1] not in vocab_dict[card[0]].s:
+    vocab_dict[card[0]].freq += 1
+  # Thêm doc_id vào postings set
+  vocab_dict[card[0]].s.add(card[1])
 file = open('reverse-index-data.txt', 'w')
-for key, value in my_dict.items():
-  file.write('{0}::{1}::{2} \n'.format(key, value.freq, value.l))
+# Save to file
+for key, value in vocab_dict.items():
+  file.write('{0}::{1}::{2}\n'.format(key, value.freq, value.s))
 file.close()
