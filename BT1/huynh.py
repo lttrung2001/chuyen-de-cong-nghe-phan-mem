@@ -18,9 +18,7 @@ for num in range(len(documents)):
     print(documents[num])
 
 for document in documents:
-    mod_string = re.sub(pattern, '', document)
-    vocabulary.update(mod_string.lower().split())
-    print(mod_string)
+    vocabulary.update(document.lower().split())
 
 print(vocabulary)
 
