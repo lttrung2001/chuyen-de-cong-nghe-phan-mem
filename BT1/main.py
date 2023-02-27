@@ -1,5 +1,6 @@
-from read_inverted_index import read_inverted_index
+from read_inverse_index import read_inverse_index
 from utils.read_doc_file import read_docs
+from utils.read_query_file import read_queries
 import math
 def intersect(p1, p2):
   answer = []
@@ -58,16 +59,19 @@ def intersect_skip(list1, list2):
 if __name__ == '__main__':
   # Test: visible and wendelstein and with
   doc_dict = read_docs()
-  vocab_dict = read_inverted_index()
+  vocab_dict = read_inverse_index()
+  query_list = read_queries()
 
-  intersect_results = intersect(
-    sorted(vocab_dict["visible"].s),
-    sorted(vocab_dict["with"].s)
-  )
-  print(intersect_results)
-
-  intersect_skip_results = intersect_skip(
-     sorted(vocab_dict["visible"].s),
-     sorted(vocab_dict["with"].s)
-  )
-  print(intersect_skip_results)
+  for query in query_list:
+    words = query.split()
+    print(words)
+    if len(words) == 0 or any([True for word in words if word not in vocab_dict]):
+      print([])
+      continue
+    result = sorted(vocab_dict[words[0]].s)
+    if len(words) == 1:
+      print(result)
+    else:
+      for remain_word in words[1:]:
+        result = intersect_skip(result, sorted(vocab_dict[remain_word].s))
+      print(result)
