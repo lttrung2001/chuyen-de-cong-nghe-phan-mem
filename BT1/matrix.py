@@ -1,11 +1,8 @@
 import numpy as np
 import re
+from utils.read_doc_file import read_docs
 
-documents = [
-    "The quick brown fox jumps over the lazy dog.",
-    "A quick brown dog jumps over the lazy fox.",
-    "The lazy brown dog jumps over the quick fox."
-]
+documents = list(read_docs().values())
 
 pattern = r'[.]'
 
@@ -15,7 +12,6 @@ vocabulary = set()
 
 for num in range(len(documents)):
     documents[num] = re.sub(pattern, '', documents[num])
-    print(documents[num])
 
 for document in documents:
     vocabulary.update(document.lower().split())
