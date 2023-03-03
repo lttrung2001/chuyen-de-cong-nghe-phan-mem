@@ -4,12 +4,10 @@ from utils.read_doc_file import read_docs
 
 documents = list(read_docs().values())
 
-pattern = r'[.]'
-
-
 # Build a vocabulary of unique words in the documents
 vocabulary = set()
 
+pattern = r'[.]'
 for num in range(len(documents)):
     documents[num] = re.sub(pattern, '', documents[num])
 
