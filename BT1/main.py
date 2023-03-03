@@ -62,9 +62,11 @@ if __name__ == '__main__':
   vocab_dict = read_inverse_index()
   query_list = read_queries()
 
+  # Sort query list by length
+  query_list = sorted(query_list, key = lambda query: len(query))
   for query in query_list:
+    # Separate words
     words = query.split()
-    print(words)
     if len(words) == 0 or any([True for word in words if word not in vocab_dict]):
       print([])
       continue
