@@ -69,7 +69,7 @@ if __name__ == '__main__':
   for query in query_list:
     # Separate words
     words = query.split()
-    if len(words) == 0 or any([True for word in words if word not in vocab_dict]):
+    if len(words) == 0:
       print([])
       continue
     result = sorted(vocab_dict[words[0]].s)
