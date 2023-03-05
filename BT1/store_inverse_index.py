@@ -18,14 +18,12 @@ cards.sort()
 
 # Tổng hợp danh sách thẻ định vị
 for card in cards:
-  # Chưa có trong dict -> khởi tạo
-  if card[0] not in vocab_dict:
-    vocab_dict[card[0]] = InverseIndex(0, set())
-  # Doc chưa có trong postings set -> frequency + 1
-  if card[1] not in vocab_dict[card[0]].s:
+  # Nếu term có trong bộ từ vựng và doc_id chưa có trong postings list của term
+  if card[0] in vocab_dict and card[1] not in vocab_dict[card[0]].s:
+    # Doc chưa có trong postings set -> frequency + 1
     vocab_dict[card[0]].freq += 1
-  # Thêm doc_id vào postings set
-  vocab_dict[card[0]].s.add(card[1])
+    # Thêm doc_id vào postings set
+    vocab_dict[card[0]].s.add(card[1])
 file = open('inverse-index-data.txt', 'w')
 # Save to file
 for key, value in vocab_dict.items():

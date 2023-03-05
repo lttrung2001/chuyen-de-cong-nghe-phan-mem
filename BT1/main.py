@@ -54,14 +54,16 @@ def intersect_skip(list1, list2):
         i2 += 1
   return answer
 
-
+def remove_stop_words(s, vocab_dict):
+  words = s.split()
+  words = [word for word in words if word in vocab_dict]
+  return ' '.join(words)
 
 if __name__ == '__main__':
-  # Test: visible and wendelstein and with
   doc_dict = read_docs()
   vocab_dict = read_inverse_index()
   query_list = read_queries()
-
+  query_list = list(map(lambda s: remove_stop_words(s, vocab_dict), query_list))
   # Sort query list by length
   query_list = sorted(query_list, key = lambda query: len(query))
   for query in query_list:

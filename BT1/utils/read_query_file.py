@@ -9,10 +9,10 @@ def read_queries():
       if strip_line.isdigit():
         continue
       elif strip_line.endswith('/'):
-        query_list.append(tmp.strip().lower())
+        query_list.append(tmp.strip())
         tmp = ''
       else:
-        tmp += " {}".format(strip_line)
+        tmp += " {}".format(strip_line.lower())
   except IndexError:
     print('end of file')
   query_file.close()
