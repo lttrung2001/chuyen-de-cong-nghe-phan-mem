@@ -8,12 +8,14 @@ def vb_encode_number(number):
 	bytes[len(bytes) - 1] += 128
 	return bytes
 
+
 def vb_encode(numbers):
 	byte_stream = []
 	for number in numbers:
 		bytes = vb_encode_number(number)
 		byte_stream.extend(bytes)
 	return byte_stream
+
 
 def vb_decode(byte_stream):
 	numbers = []
@@ -27,12 +29,13 @@ def vb_decode(byte_stream):
 			n = 0
 	return numbers
 
-number = 12834
-arr_input = [int(x) for x in str(number)]
-encoded = vb_encode(arr_input)
-decoded = vb_decode(encoded)
-arr_output = [str(x) for x in decoded]
 
+if __name__ == '__main__':
+	number = 12834
+	arr_input = [int(x) for x in str(number)]
+	encoded = vb_encode(arr_input)
+	decoded = vb_decode(encoded)
+	arr_output = [str(x) for x in decoded]
 
-print(f'{encoded=} {decoded=}')
-print(int(''.join(arr_output)))
+	print(f'{encoded=} {decoded=}')
+	print(int(''.join(arr_output)))
