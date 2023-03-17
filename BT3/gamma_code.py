@@ -1,3 +1,7 @@
+# Thành viên:
+# 1. Lê Thành Trung - N19DCCN214
+# 2. Đinh Trường Sơn - N19DCCN159
+# 3. Trần Quang Ngọc Huỳnh - N19DCCN075
 def unary_encode(number):
   return '1' * number + '0'
 
