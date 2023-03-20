@@ -8,5 +8,6 @@ file.close()
 
 import pickle
 sorted_file = open('sorted-inverse-index-data.pkl', 'wb')
+my_list = sorted(my_list, key= lambda item: item[2])
 pickle.dump(my_list, sorted_file, protocol=pickle.HIGHEST_PROTOCOL)
 sorted_file.close()
