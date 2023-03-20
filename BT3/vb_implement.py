@@ -3,15 +3,42 @@ from read_inverse_index import read_inverse_index
 from entities.InverseIndex import InverseIndex
 import pickle
 
+def to_delta_list(ids):
+    delta = 0
+    res_ls = []
+    for id in ids:
+        delta = id - delta
+        res_ls.append(delta)
+    return res_ls
+
+def to_id_list(delta_list):
+    if delta_list:
+        id = 0
+        res_ls = []
+        for delta in delta_list:
+            res_ls.append(id + delta)
+            id = delta
+        return res_ls
+    else:
+        return []
+
 def compress():
     d = read_inverse_index()
-    res_dict = {k: InverseIndex(v.freq, list(map(lambda i: vb_encode(i), v.s))) for k, v in d.items()}
-    return res_dict
+    # Sort doc_id list
+    d = {k: InverseIndex(v.freq, sorted(v.s)) for k, v in d.items()}
+    # Convert doc_id list to delta list
+    d = {k: InverseIndex(v.freq, to_delta_list(v.s)) for k, v in d.items()}
+    # Encode
+    d = {k: InverseIndex(v.freq, list(map(lambda i: vb_encode(i), v.s))) for k, v in d.items()}
+    return d
 
 def extract():
     d = read_compress()
-    res_dict = {k: InverseIndex(v.freq, set(map(lambda i: int(''.join([str(i) for i in vb_decode(i)])), v.s))) for k, v in d.items()}
-    return res_dict
+    # Decode
+    d = {k: InverseIndex(v.freq, list(map(lambda i: int(''.join([str(i) for i in vb_decode(i)])), v.s))) for k, v in d.items()}
+    # Convert delta list to doc_id list
+    d = {k: InverseIndex(v.freq, to_id_list(v.s)) for k, v in d.items()}
+    return d
 
 
 def write_compress():
@@ -23,5 +50,6 @@ def read_compress():
         return pickle.load(f)
 
 if __name__ == '__main__':
+    write_compress()
     d = extract()
-    print(d)
+    print(d["use"])
