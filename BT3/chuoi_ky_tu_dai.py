@@ -1,11 +1,8 @@
 # Chuỗi ký tự dài (Huỳnh)
-# file = open('inverse-index-data.txt', 'r')
 import pickle
 with open('sorted-inverse-index-data.pkl', 'rb') as file:
     my_list = pickle.load(file)
     chuoi_ky_tu_dai = ''
-    print(my_list)
-    # print("=======================\n\n\n\n\n\n")
     miss_like = []
     for line in my_list:
         # [freq, postings_list, term] = line.split(',')
