@@ -9,6 +9,7 @@ with open('sorted-inverse-index-data.pkl', 'rb') as file:
     after = time.time_ns()
     print('Thoi gian load khong nen: ',(after - before) * (10**-9))
     my_str = ''
+    file.close()
 
 def get_term(term_index):
   first_term_index = term_index // k
@@ -43,12 +44,17 @@ if __name__ == '__main__':
         count += 1
     after = memory_usage(my_list)
 
-    pickle.dump([my_str, my_list], open('phan-doan-data.pkl', 'wb'), protocol=pickle.HIGHEST_PROTOCOL)
+    with open('phan-doan-data.pkl', 'wb') as file:
+      pickle.dump([my_str, my_list], file, protocol=pickle.HIGHEST_PROTOCOL)
+      file.close()
 
     before = time.time_ns()
-    [my_str, my_list] = pickle.load(open('phan-doan-data.pkl', 'rb'))
+    with open('phan-doan-data.pkl', 'rb') as file:
+      [my_str, my_list] = pickle.load(file)
+      file.close()
+
     after = time.time_ns()
     print('Thoi gian load nen phan doan: ',(after - before) * (10**-9))
-    print("Dung luong nen phan doan: ", memory_usage(my_list))
+    print("Dung luong nen phan doan: ", memory_usage(my_list) + memory_usage(my_str))
 
         

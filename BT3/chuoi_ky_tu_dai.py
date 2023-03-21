@@ -2,6 +2,7 @@
 import pickle
 with open('sorted-inverse-index-data.pkl', 'rb') as file:
     my_list = pickle.load(file)
+    file.close()
     chuoi_ky_tu_dai = ''
     miss_like = []
     for line in my_list:
