@@ -56,6 +56,5 @@ avg_doc_length = 3
 
 for query in query_list:
     ranked_docs = prp_bim_ranking(corpus, query, avg_doc_length)
-    # print(ranked_docs)
-    # print("==============")
-    # break
+    print(ranked_docs)
+    print("==============")

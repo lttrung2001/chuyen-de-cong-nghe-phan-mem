@@ -1,3 +1,10 @@
+# Thành viên
+# 1. Trần Quang Ngọc Huỳnh - N19DCCN075
+# 2. Đinh Trường Sơn - N19DCCN159
+# 3. Lê Thành Trung - N19DCCN214
+
+
+
 from utils.helper import *
 import numpy as np
 import math
